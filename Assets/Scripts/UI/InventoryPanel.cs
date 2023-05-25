@@ -7,30 +7,104 @@ public class InventoryPanel : MonoBehaviour
 {
     public GameObject slotsHolder;
 
-    private List<ItemSlot> slots = new List<ItemSlot>();
-    private List<ItemData> items = new List<ItemData>();
+    private List<InventorySlot> slots = new List<InventorySlot>();
+    //private List<ItemData> items = new List<ItemData>();
 
 
-    void Start()
+
+    private ItemSlot selectedSlot;
+
+    public EquipButton equipButton;
+    public UnequipButton unequipButton;
+
+    private void Start()
     {
-        slots = slotsHolder.GetComponentsInChildren<ItemSlot>().ToList();
+        slots = slotsHolder.GetComponentsInChildren<InventorySlot>().ToList();
+        Hide();
+    }
+
+    private void OnEnable()
+    {
         PopulateInventorySlots();
     }
 
-    void PopulateInventorySlots()
+    private void Update()
     {
-        items = InventoryManager.Instance.GetPlayerItems();
-        for (int i = 0; i < slots.Count; i++)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (i < items.Count)
-            {
-                slots[i].SetItem(items[i]);
-            }
-            else
-            {
-                // If there are no more items to sell, clear the slot
-                slots[i].ClearSlot();
-            }
+            Hide();
         }
     }
+
+    public void PopulateInventorySlots()
+    {
+        int slotIndex = 0;
+
+        foreach(KeyValuePair<string, Item> item in InventoryManager.Instance.GetPlayerItems().Where(x=> !x.Value.isEquipped))
+        {
+            slots[slotIndex].SetItem(item.Key, item.Value.data);
+            slotIndex++;
+        }
+        // Clear left over slots
+        for (int i = slotIndex; i < slots.Count; i++)
+        {
+            slots[i].ClearSlot();
+        }
+    }
+
+    // Ignore this unless you do changes here
+    #region Tools
+    public void ShowEquipButton()
+    {
+        HideUnequipButton();
+        equipButton.gameObject.SetActive(true);
+    }
+
+    public void HideEquipButton()
+    {
+        equipButton.gameObject.SetActive(false);
+    }
+
+    public void ShowUnequipButton()
+    {
+        HideEquipButton();
+        unequipButton.gameObject.SetActive(true);
+    }
+
+    public void HideUnequipButton()
+    {
+        unequipButton.gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+        UIManager.Instance.InventoryPanel.SelectSlot(null);
+    }
+
+    public ItemSlot GetSelectedSlot()
+    {
+        return selectedSlot;
+    }
+
+    public void SelectSlot(ItemSlot slot)
+    {
+        if (selectedSlot != null)
+        {
+            selectedSlot.SetSelected(false);
+        }
+        if(slot != null)
+        {
+            selectedSlot = slot;
+            selectedSlot.SetSelected(true);
+        }
+      
+    }
+    #endregion
+
 }

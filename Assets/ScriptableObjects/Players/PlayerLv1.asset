@@ -15,3 +15,6 @@ MonoBehaviour:
   coins: 5
   items:
   - {fileID: 11400000, guid: bc3970fae5576f54a931475d5564c536, type: 2}
+  - {fileID: 11400000, guid: 3c310d53b2ae29e48a46fb3ac0a8c8c4, type: 2}
+  - {fileID: 11400000, guid: bc3970fae5576f54a931475d5564c536, type: 2}
+  inventorySize: 14

@@ -9,4 +9,19 @@ public class UIManager : SingletonComponent<UIManager>
     public InventoryPanel InventoryPanel;
     public EquipPanel EquipPanel;
 
+
+    public bool IsPanelOpen()
+    {
+        return ShopPanel.gameObject.activeSelf || InventoryPanel.gameObject.activeSelf;
+    }
+
+    public bool isShopPanelOpen()
+    {
+        return ShopPanel.gameObject.activeSelf;
+    }
+
+    public bool isInventoryPanelOpen()
+    {
+        return InventoryPanel.gameObject.activeSelf;
+    }
 }

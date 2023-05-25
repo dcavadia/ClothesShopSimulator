@@ -19,6 +19,11 @@ public class ShopPanel : MonoBehaviour
     void Start()
     {
         slots = slotsHolder.GetComponentsInChildren<ItemSlot>().ToList();
+        Hide();
+    }
+
+    private void OnEnable()
+    {
         PopulateShopSlots();
     }
 
@@ -36,7 +41,7 @@ public class ShopPanel : MonoBehaviour
         {
             if (i < itemsToSell.Count)
             {
-                slots[i].SetItem(itemsToSell[i]);
+                slots[i].SetItem("", itemsToSell[i]);
             }
             else
             {
@@ -54,5 +59,7 @@ public class ShopPanel : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        UIManager.Instance.ShopPanel.shopInfoPanel.EndTransaction();
+        UIManager.Instance.InventoryPanel.SelectSlot(null);
     }
 }

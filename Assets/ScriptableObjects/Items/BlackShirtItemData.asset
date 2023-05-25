@@ -16,3 +16,4 @@ MonoBehaviour:
   description: A black shirt with long sleeves
   icon: {fileID: 21300000, guid: df03211313565c20ab3d04f51bea5707, type: 3}
   price: 10
+  isEquipped: 0

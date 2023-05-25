@@ -16,3 +16,4 @@ MonoBehaviour:
   description: A yellow shirt with long sleeves
   icon: {fileID: 21300002, guid: dfe2da12be5f5994286f281b2cde6656, type: 3}
   price: 5
+  isEquipped: 0

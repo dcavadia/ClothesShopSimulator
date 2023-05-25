@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 movement;
     private Animator animator;
     private bool moving;
+    
+    private float moveHorizontal, moveVertical;
 
     private void Start()
     {
@@ -18,17 +20,38 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        if (!UIManager.Instance.IsPanelOpen())
+        {
+            moveHorizontal = Input.GetAxis("Horizontal");
+            moveVertical = Input.GetAxis("Vertical");
+        }
+        else
+        {
+            moveHorizontal = 0f;
+            moveVertical = 0f;
+        }
 
         movement = new Vector2(moveHorizontal, moveVertical);
 
         UpdateAnimator(moveHorizontal, moveVertical);
         UpdateMovementState(moveHorizontal, moveVertical);
+
+        // Check for key inputs
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            UIManager.Instance.ShopPanel.Show(); // Open the shop in the UIManager
+        }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            UIManager.Instance.InventoryPanel.Show(); // Open the inventory in the UIManager
+        }
     }
 
     private void FixedUpdate()
     {
+        //if (UIManager.Instance.IsPanelOpen())
+        //    return; // Ignore inputs if there is an open panel in the UIManager
+
         Move();
     }
 
@@ -53,5 +76,10 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         rb.velocity = movement * movementSpeed;
+    }
+
+    private void Stop()
+    {
+
     }
 }
