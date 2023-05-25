@@ -8,10 +8,10 @@ public class ItemInfoPopUp : MonoBehaviour
     public TMP_Text itemName;
     public TMP_Text price;
 
-    public void SetUpItemInfo(Item item)
+    public void SetUpItemInfo(ItemData ItemData)
     {
-        itemName.text = item.name;
-        price.text = item.price.ToString();
+        itemName.text = ItemData.name;
+        price.text = ItemData.price.ToString();
     }
 
     public void Show()

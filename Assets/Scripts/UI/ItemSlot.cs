@@ -5,16 +5,16 @@ using UnityEngine.UI;
 public abstract class ItemSlot : MonoBehaviour
 {
     public Image itemIcon;
-    public Item itemData;
+    public ItemData itemData;
 
     protected virtual void Awake()
     {
 
     }
 
-    public void SetItem(Item item)
+    public void SetItem(ItemData ItemData)
     {
-        itemData = item;
+        itemData = ItemData;
         itemIcon.enabled = true;
         itemIcon.sprite = itemData.icon;
     }

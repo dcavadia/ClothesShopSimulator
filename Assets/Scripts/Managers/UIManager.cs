@@ -6,5 +6,7 @@ public class UIManager : SingletonComponent<UIManager>
 {
     public GameObject UICanvas;
     public ShopPanel ShopPanel;
+    public InventoryPanel InventoryPanel;
+    public EquipPanel EquipPanel;
 
 }

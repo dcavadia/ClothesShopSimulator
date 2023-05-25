@@ -13,7 +13,6 @@ public class InventorySlot : ItemSlot, IPointerDownHandler, IPointerUpHandler, I
     protected override void Awake()
     {
         base.Awake();
-
         iconGhost = UIManager.Instance.ShopPanel.iconGhost;
     }
 
@@ -24,7 +23,7 @@ public class InventorySlot : ItemSlot, IPointerDownHandler, IPointerUpHandler, I
             // Toggle the selection state
             isSelected = !isSelected;
 
-            // Call the function in ShopPanel to show item info
+            // Call the function in ShopPanel to show ItemData info
             UIManager.Instance.ShopPanel.shopInfoPanel.ShowInventoryItemInfo(itemData);
         }
     }
@@ -74,7 +73,7 @@ public class InventorySlot : ItemSlot, IPointerDownHandler, IPointerUpHandler, I
 
         if (sourceSlot != null && sourceSlot.itemData != null && destinationSlot != null && sourceSlot != destinationSlot)
         {
-            Item sourceItem = sourceSlot.itemData;
+            ItemData sourceItem = sourceSlot.itemData;
             if (destinationSlot.itemData == null)
             {
                 // Move items between slots

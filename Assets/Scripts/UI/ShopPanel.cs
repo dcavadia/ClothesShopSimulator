@@ -10,7 +10,7 @@ public class ShopPanel : MonoBehaviour
     public GameObject iconGhost;
     public ItemInfoPopUp itemInfoPopUp;
     public ShopInfoPanel shopInfoPanel;
-    public List<Item> itemsToSell;
+    public List<ItemData> itemsToSell;
 
     private List<ItemSlot> slots = new List<ItemSlot>();
 
@@ -22,10 +22,12 @@ public class ShopPanel : MonoBehaviour
         PopulateShopSlots();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Hide();
+        }
     }
 
     void PopulateShopSlots()
@@ -42,5 +44,15 @@ public class ShopPanel : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -12,47 +12,47 @@ public class ShopInfoPanel : MonoBehaviour
     public ShopButton yesButton;
     public ShopButton noButton;
 
-    public void ShowShopItemInfo(Item item)
+    public void ShowShopItemInfo(ItemData ItemData)
     {
-        infoText.text = "You wanna BUY the item '" + item.name + "' for " + item.price + " coins?";
-        yesButton.item = item;
+        infoText.text = "You wanna BUY the ItemData '" + ItemData.name + "' for " + ItemData.price + " coins?";
+        yesButton.ItemData = ItemData;
 
         panelButtons.SetActive(true);
         yesButton.ShopButtonAction += ProcessBuyTransaction;
         noButton.ShopButtonAction += ProcessBuyTransaction;
     }
 
-    public void ShowInventoryItemInfo(Item item)
+    public void ShowInventoryItemInfo(ItemData ItemData)
     {
-        infoText.text = "You wanna SELL the item '" + item.name + "' for " + item.price + " coins?";
-        yesButton.item = item;
+        infoText.text = "You wanna SELL the ItemData '" + ItemData.name + "' for " + ItemData.price + " coins?";
+        yesButton.ItemData = ItemData;
 
         panelButtons.SetActive(true);
         yesButton.ShopButtonAction += ProcessSellTransaction;
         noButton.ShopButtonAction += ProcessSellTransaction;
     }
 
-    public void ProcessBuyTransaction(Item item)
+    public void ProcessBuyTransaction(ItemData ItemData)
     {
         yesButton.ShopButtonAction -= ProcessBuyTransaction;
         noButton.ShopButtonAction -= ProcessBuyTransaction;
 
-        if (item != null)
+        if (ItemData != null)
         {
-            EconomyManager.Instance.BuyItem(item);
+            EconomyManager.Instance.BuyItem(ItemData);
         }
        
         EndTransaction();
     }
 
-    public void ProcessSellTransaction(Item item)
+    public void ProcessSellTransaction(ItemData ItemData)
     {
         yesButton.ShopButtonAction -= ProcessSellTransaction;
         noButton.ShopButtonAction -= ProcessSellTransaction;
 
-        if (item != null)
+        if (ItemData != null)
         {
-            EconomyManager.Instance.SellItem(item);
+            EconomyManager.Instance.SellItem(ItemData);
         }
         
         EndTransaction();

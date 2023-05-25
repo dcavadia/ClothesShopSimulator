@@ -13,7 +13,7 @@ public class ShopSlot : ItemSlot, IPointerClickHandler
             // Toggle the selection state
             isSelected = !isSelected;
 
-            // Call the function in ShopPanel to show item info
+            // Call the function in ShopPanel to show ItemData info
             UIManager.Instance.ShopPanel.shopInfoPanel.ShowShopItemInfo(itemData);
         }
     }
