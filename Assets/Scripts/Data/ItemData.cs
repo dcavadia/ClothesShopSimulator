@@ -8,5 +8,7 @@ public class ItemData : ScriptableObject
     public Sprite icon;
     public int price;
     public bool isEquipped;
-    // Add any additional properties or methods here
+
+    // Here should be the type of item but since all of them are skins, show the sprites field of the skin for all items:
+    public Sprite[] sprites;
 }

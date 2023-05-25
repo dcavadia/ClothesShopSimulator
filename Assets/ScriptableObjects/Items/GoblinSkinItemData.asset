@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3457636620ff344a94d1811943098c, type: 3}
+  m_Name: GoblinSkinItemData
+  m_EditorClassIdentifier: 
+  itemName: Goblin Outfit
+  description: A cool goblin outfit
+  icon: {fileID: -39914827, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  price: 10
+  isEquipped: 0
+  sprites:
+  - {fileID: -39914827, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -1289695698, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 1048038379, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -380249481, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 2120952178, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -100340154, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -1885339476, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 39519730, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 326645377, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -347523630, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 1098030539, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -1501976209, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 1170852143, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 915187717, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -684873187, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -668884202, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 470013565, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 1715519932, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 182156960, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -427896867, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -1748557213, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -141666951, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -276418647, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 783232013, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -172122945, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -1492772127, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 1315746661, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 64569822, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 12240312, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: 1511635021, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -1971273093, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}
+  - {fileID: -1828422316, guid: d9b63c92d3c6cc54797c2126501a7f2f, type: 3}

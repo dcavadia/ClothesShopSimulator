@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -25,13 +24,6 @@ public class InventorySlot : ItemSlot, IPointerDownHandler, IPointerUpHandler, I
         slotImage = GetComponent<Image>();
     }
 
-    private void LateUpdate()
-    {
-        
-        //isPointerDown = false;
-        //clickTimer = 0f;
-    }
-
     private void Update()
     {
         if (isPointerDown)
@@ -40,21 +32,17 @@ public class InventorySlot : ItemSlot, IPointerDownHandler, IPointerUpHandler, I
         }
     }
 
+    // Triggered when the inventory slot is clicked
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (itemData != null)
+        if (item != null)
         {
-            if (clickTimer < CLICK_DURATION_THRESHOLD)
-            {
-                // Handle short click here
-                Debug.Log("Short Click");
-            }
 
             isSelected = !isSelected;
 
             if (UIManager.isShopPanelOpen())
             {
-                UIManager.ShopPanel.shopInfoPanel.ShowInventoryItemInfo(itemData);
+                UIManager.ShopPanel.shopInfoPanel.ShowInventoryItemInfo(item);
             }
             else if (UIManager.isInventoryPanelOpen())
             {
@@ -62,68 +50,70 @@ public class InventorySlot : ItemSlot, IPointerDownHandler, IPointerUpHandler, I
             }
 
             UIManager.InventoryPanel.SelectSlot(this);
+            UIManager.ShopPanel.SelectSlot(null);
+            UIManager.EquipPanel.SelectSlot(null);
             UpdateSlotColor();
         }
     }
 
+    // Triggered when a pointer is pressed on the inventory slot
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (itemData == null)
+        if (item == null)
             return;
 
         isPointerDown = true;
         clickTimer = 0f;
     }
 
+    // Triggered when a pointer is released on the inventory slot
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (itemData == null)
+        if (item == null)
             return;
 
         iconGhost.SetActive(false);
         itemIcon.enabled = true;
     }
 
+    // Triggered when the inventory slot is being dragged
     public void OnDrag(PointerEventData eventData)
     {
-        if (itemData == null)
+        if (item == null)
             return;
 
         if (isPointerDown && clickTimer >= CLICK_DURATION_THRESHOLD)
         {
             iconGhost.GetComponent<Image>().sprite = itemIcon.sprite;
-            //iconGhost.transform.position = 
             iconGhost.SetActive(true);
             itemIcon.enabled = false;
 
-            Debug.Log("Draggin!");
             iconGhost.transform.position = eventData.position;
         }
-
-
-
     }
 
+    // Triggered when the dragging of the inventory slot ends
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (itemData == null)
+        if (item == null)
             return;
 
         iconGhost.SetActive(false);
         itemIcon.enabled = true;
     }
 
+    // Triggered when the inventory slot is dropped onto another slot
     public void OnDrop(PointerEventData eventData)
     {
         InventorySlot sourceSlot = eventData.pointerDrag.GetComponent<InventorySlot>();
         InventorySlot destinationSlot = this;
 
-        if (sourceSlot != null && sourceSlot.itemData != null && destinationSlot != null && sourceSlot != destinationSlot)
+        if (sourceSlot != null && sourceSlot.item != null && destinationSlot != null && sourceSlot != destinationSlot)
         {
-            ItemData sourceItem = sourceSlot.itemData;
-            string sourceUid = sourceSlot.itemUid;
+            ItemData sourceItem = sourceSlot.item.data;
+            string sourceUid = sourceSlot.item.uid;
 
-            if (destinationSlot.itemData == null)
+            if (destinationSlot.item == null)
             {
                 sourceSlot.ClearSlot();
                 destinationSlot.SetItem(sourceUid, sourceItem);
@@ -131,12 +121,15 @@ public class InventorySlot : ItemSlot, IPointerDownHandler, IPointerUpHandler, I
             }
             else
             {
-                sourceSlot.SetItem(destinationSlot.itemUid, destinationSlot.itemData);
+                sourceSlot.SetItem(destinationSlot.item.uid, destinationSlot.item.data);
                 destinationSlot.SetItem(sourceUid, sourceItem);
             }
+
+            UIManager.InventoryPanel.SelectSlot(null);
         }
     }
 
+    // Updates the color of the inventory slot based on its selection state
     private void UpdateSlotColor()
     {
         slotImage.color = isSelected ? selectedColor : Color.white;

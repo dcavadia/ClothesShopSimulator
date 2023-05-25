@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,28 +15,38 @@ public class EquipSlot : ItemSlot, IPointerClickHandler
         slotImage = GetComponent<Image>();
     }
 
+    // Handle the click event when the equip slot is clicked
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (itemData != null)
+        if (item.data != null)
         {
-            // Toggle the selection state
-            isSelected = !isSelected;
+            ToggleSelection();
 
+            // Update UI states and colors
             UIManager.Instance.InventoryPanel.ShowUnequipButton();
-
             UIManager.Instance.InventoryPanel.SelectSlot(this);
+            UIManager.Instance.ShopPanel.SelectSlot(null);
+            UIManager.Instance.EquipPanel.SelectSlot(null);
             UpdateSlotColor();
         }
     }
 
+    // Toggle the selection state of the equip slot
+    private void ToggleSelection()
+    {
+        isSelected = !isSelected;
+    }
+
+    // Update the color of the equip slot based on its selection state
+    private void UpdateSlotColor()
+    {
+        slotImage.color = isSelected ? selectedColor : Color.white;
+    }
+
+    // Set the selected state of the equip slot
     public override void SetSelected(bool selected)
     {
         isSelected = selected;
         UpdateSlotColor();
-    }
-
-    private void UpdateSlotColor()
-    {
-        slotImage.color = isSelected ? selectedColor : Color.white;
     }
 }

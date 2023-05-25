@@ -1,67 +1,82 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ShopInfoPanel : MonoBehaviour
 {
-    const string DEFAULT_TEXT = "Need some new clothing or accessories? Or are you looking to update your wardrobe?";
-    public TMP_Text infoText;
+    private const string DEFAULT_TEXT = "Need some new clothing or accessories? Or are you looking to update your wardrobe?";
 
+    public TMP_Text infoText;
     public GameObject panelButtons;
     public ShopButton yesButton;
     public ShopButton noButton;
 
-    public void ShowShopItemInfo(ItemData ItemData)
+    // Displays the information for a shop item.
+    public void ShowShopItemInfo(Item itemData)
     {
-        infoText.text = "You wanna BUY the ItemData '" + ItemData.name + "' for " + ItemData.price + " coins?";
-        yesButton.ItemData = ItemData;
+        infoText.text = "You wanna BUY the item '" + itemData.data.name + "' for " + itemData.data.price + " coins?";
+        yesButton.ItemData = itemData;
 
         panelButtons.SetActive(true);
         yesButton.ShopButtonAction += ProcessBuyTransaction;
-        noButton.ShopButtonAction += ProcessBuyTransaction;
+        noButton.ShopButtonAction += EndTransaction;
     }
 
-    public void ShowInventoryItemInfo(ItemData ItemData)
+    // Displays the information for an inventory item.
+    public void ShowInventoryItemInfo(Item itemData)
     {
-        infoText.text = "You wanna SELL the ItemData '" + ItemData.name + "' for " + ItemData.price + " coins?";
-        yesButton.ItemData = ItemData;
+        infoText.text = "You wanna SELL the item '" + itemData.data.name + "' for " + itemData.data.price + " coins?";
+        yesButton.ItemData = itemData;
 
         panelButtons.SetActive(true);
         yesButton.ShopButtonAction += ProcessSellTransaction;
-        noButton.ShopButtonAction += ProcessSellTransaction;
+        noButton.ShopButtonAction += EndTransaction;
     }
 
-    public void ProcessBuyTransaction(ItemData ItemData)
+    // Process the transaction for buying an item.
+    private void ProcessBuyTransaction(Item itemData)
     {
-        yesButton.ShopButtonAction -= ProcessBuyTransaction;
-        noButton.ShopButtonAction -= ProcessBuyTransaction;
-
-        if (ItemData != null)
+        if (!EconomyManager.Instance.CanAffordItem(itemData.data.price) || !UIManager.Instance.InventoryPanel.CapacityAvailable())
         {
-            EconomyManager.Instance.BuyItem(ItemData);
+            Debug.Log("Not enough money or capacity");
+            return;
         }
-       
-        EndTransaction();
+
+        yesButton.ShopButtonAction -= ProcessBuyTransaction;
+        noButton.ShopButtonAction -= EndTransaction;
+
+        if (itemData != null)
+        {
+            InventoryManager.Instance.AddItemToInventory(itemData.data);
+            EconomyManager.Instance.BuyItem(itemData.data);     
+        }
+
+        EndTransaction(itemData);
     }
 
-    public void ProcessSellTransaction(ItemData ItemData)
+    // Process the transaction for selling an item.
+    private void ProcessSellTransaction(Item itemData)
     {
         yesButton.ShopButtonAction -= ProcessSellTransaction;
-        noButton.ShopButtonAction -= ProcessSellTransaction;
+        noButton.ShopButtonAction -= EndTransaction;
 
-        if (ItemData != null)
+        if (itemData != null)
         {
-            EconomyManager.Instance.SellItem(ItemData);
+            InventoryManager.Instance.RemoveItemFromInventory(itemData.uid);
+            EconomyManager.Instance.SellItem(itemData.data);
         }
-        
-        EndTransaction();
+
+        EndTransaction(itemData);
     }
 
-    public void EndTransaction()
+    // Ends the transaction and resets the panel to its default state.
+    public void EndTransaction(Item itemData)
     {
+
+        yesButton.ShopButtonAction -= ProcessBuyTransaction;
+        yesButton.ShopButtonAction -= ProcessSellTransaction;
+        noButton.ShopButtonAction -= EndTransaction;
+
         panelButtons.SetActive(false);
         infoText.text = DEFAULT_TEXT;
     }
-
 }

@@ -5,10 +5,10 @@ using UnityEngine.EventSystems;
 
 public class ShopButton : MonoBehaviour, IPointerClickHandler
 {
-    public delegate void ShopButtonActionHandler(ItemData ItemData);
+    public delegate void ShopButtonActionHandler(Item ItemData);
     public event ShopButtonActionHandler ShopButtonAction;
 
-    public ItemData ItemData = null;
+    public Item ItemData = null;
 
     public void OnPointerClick(PointerEventData eventData)
     {

@@ -7,7 +7,6 @@ public class Item
     public string uid;
     public ItemData data;
     public bool isEquipped;
-    //int index;
 
     public Item(string uid, ItemData data)
     {

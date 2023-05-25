@@ -6,7 +6,10 @@ public class EconomyManager : SingletonComponent<EconomyManager>
 {
     private float coins = 0f;
 
-    public void SetInitialCoins(int amount)
+    public delegate void ItemActionHandler();
+    public event ItemActionHandler ItemAction;
+
+    public void SetInitialCoins(float amount)
     {
         coins = amount;
     }
@@ -19,11 +22,13 @@ public class EconomyManager : SingletonComponent<EconomyManager>
     public void BuyItem(ItemData ItemData)
     {
         coins -= ItemData.price;
+        ItemAction?.Invoke();
     }
 
     public void SellItem(ItemData ItemData)
     {
         coins += ItemData.price;
+        ItemAction?.Invoke();
     }
 
     public void AddCoin(ItemData ItemData)

@@ -6,11 +6,8 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 2f;
 
     private Rigidbody2D rb;
-    private Vector2 movement;
     private Animator animator;
     private bool moving;
-    
-    private float moveHorizontal, moveVertical;
 
     private void Start()
     {
@@ -20,39 +17,34 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        HandleMovementInput();
+        HandleKeyInputs();
+    }
+
+    private void HandleMovementInput()
+    {
+        float moveHorizontal = 0f;
+        float moveVertical = 0f;
+
         if (!UIManager.Instance.IsPanelOpen())
         {
             moveHorizontal = Input.GetAxis("Horizontal");
             moveVertical = Input.GetAxis("Vertical");
         }
-        else
-        {
-            moveHorizontal = 0f;
-            moveVertical = 0f;
-        }
 
-        movement = new Vector2(moveHorizontal, moveVertical);
-
+        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
         UpdateAnimator(moveHorizontal, moveVertical);
         UpdateMovementState(moveHorizontal, moveVertical);
 
-        // Check for key inputs
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            UIManager.Instance.ShopPanel.Show(); // Open the shop in the UIManager
-        }
-        else if (Input.GetKeyDown(KeyCode.I))
-        {
-            UIManager.Instance.InventoryPanel.Show(); // Open the inventory in the UIManager
-        }
+        rb.velocity = movement * movementSpeed;
     }
 
-    private void FixedUpdate()
+    private void HandleKeyInputs()
     {
-        //if (UIManager.Instance.IsPanelOpen())
-        //    return; // Ignore inputs if there is an open panel in the UIManager
-
-        Move();
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            UIManager.Instance.InventoryPanel.Show();
+        }
     }
 
     private void UpdateAnimator(float moveHorizontal, float moveVertical)
@@ -71,15 +63,5 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("LastHorizontal", moveHorizontal);
             animator.SetFloat("LastVertical", moveVertical);
         }
-    }
-
-    private void Move()
-    {
-        rb.velocity = movement * movementSpeed;
-    }
-
-    private void Stop()
-    {
-
     }
 }

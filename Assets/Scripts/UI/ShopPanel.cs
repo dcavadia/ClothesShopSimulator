@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,9 +13,9 @@ public class ShopPanel : MonoBehaviour
 
     private List<ItemSlot> slots = new List<ItemSlot>();
 
+    private ItemSlot selectedSlot;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         slots = slotsHolder.GetComponentsInChildren<ItemSlot>().ToList();
         Hide();
@@ -35,7 +34,8 @@ public class ShopPanel : MonoBehaviour
         }
     }
 
-    void PopulateShopSlots()
+    // Populates the shop slots with items to sell.
+    private void PopulateShopSlots()
     {
         for (int i = 0; i < slots.Count; i++)
         {
@@ -45,21 +45,39 @@ public class ShopPanel : MonoBehaviour
             }
             else
             {
-                // If there are no more items to sell, clear the slot
+                // If there are no more items to sell, clear the slot.
                 slots[i].ClearSlot();
             }
         }
     }
 
+    // Shows the shop panel.
     public void Show()
     {
         gameObject.SetActive(true);
     }
 
+    // Hides the shop panel.
     public void Hide()
     {
         gameObject.SetActive(false);
-        UIManager.Instance.ShopPanel.shopInfoPanel.EndTransaction();
+        shopInfoPanel.EndTransaction(null);
         UIManager.Instance.InventoryPanel.SelectSlot(null);
+    }
+
+    // Selects a slot in the shop panel.
+    public void SelectSlot(ItemSlot slot)
+    {
+        if (selectedSlot != null)
+        {
+            selectedSlot.SetSelected(false);
+        }
+
+        selectedSlot = slot;
+
+        if (selectedSlot != null)
+        {
+            selectedSlot.SetSelected(true);
+        }
     }
 }

@@ -8,6 +8,7 @@ public class UIManager : SingletonComponent<UIManager>
     public ShopPanel ShopPanel;
     public InventoryPanel InventoryPanel;
     public EquipPanel EquipPanel;
+    public InstructionPanel InstructionPanel;
 
 
     public bool IsPanelOpen()
