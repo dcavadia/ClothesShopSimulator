@@ -20102,6 +20102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpriteRenderer: {fileID: 539197970}
+  defaultPlayerSkin: {fileID: 896218982, guid: 05541d730d3b27a408cab69e01be21df, type: 3}
 --- !u!4 &1551355805
 Transform:
   m_ObjectHideFlags: 0

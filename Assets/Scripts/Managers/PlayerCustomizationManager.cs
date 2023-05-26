@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerCustomizationManager : SingletonComponent<PlayerCustomizationManager>
 {
     [SerializeField] private SpriteRenderer playerSpriteRenderer;
+    [SerializeField] private Sprite defaultPlayerSkin;
 
     private ItemData currentSkin;
 
@@ -35,7 +36,7 @@ public class PlayerCustomizationManager : SingletonComponent<PlayerCustomization
         }
         else
         {
-            return playerSpriteRenderer.sprite;
+            return defaultPlayerSkin;
         }
     }
 

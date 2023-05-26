@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d41a2f907cbe89c48b5f9ab1970a90ad, type: 3}
   m_Name: PlayerLv1
   m_EditorClassIdentifier: 
-  coins: 5
+  coins: 15
   items:
-  - {fileID: 11400000, guid: bc3970fae5576f54a931475d5564c536, type: 2}
   - {fileID: 11400000, guid: 3c310d53b2ae29e48a46fb3ac0a8c8c4, type: 2}
-  - {fileID: 11400000, guid: bc3970fae5576f54a931475d5564c536, type: 2}
   inventorySize: 14
