@@ -126,6 +126,7 @@ public class InventorySlot : ItemSlot, IPointerDownHandler, IPointerUpHandler, I
             }
 
             UIManager.InventoryPanel.SelectSlot(null);
+            UIManager.ShopPanel.shopInfoPanel.ResetSelectedItem();
         }
     }
 

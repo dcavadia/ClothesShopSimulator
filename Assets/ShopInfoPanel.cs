@@ -79,4 +79,10 @@ public class ShopInfoPanel : MonoBehaviour
         panelButtons.SetActive(false);
         infoText.text = DEFAULT_TEXT;
     }
+
+    public void ResetSelectedItem()
+    {
+        panelButtons.SetActive(false);
+        infoText.text = DEFAULT_TEXT;
+    }
 }

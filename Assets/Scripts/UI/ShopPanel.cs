@@ -7,7 +7,6 @@ public class ShopPanel : MonoBehaviour
 {
     public GameObject slotsHolder;
     public GameObject iconGhost;
-    public ItemInfoPopUp itemInfoPopUp;
     public ShopInfoPanel shopInfoPanel;
     public List<ItemData> itemsToSell;
 
