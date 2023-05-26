@@ -12,11 +12,14 @@ public class InventoryPanel : MonoBehaviour
     public EquipButton equipButton;
     public UnequipButton unequipButton;
 
-    private void Start()
+    private void Awake()
     {
         // Retrieve all ItemSlots from the slotsHolder
         slots = slotsHolder.GetComponentsInChildren<ItemSlot>().ToList();
+    }
 
+    private void Start()
+    {
         if (equipButton != null)
             Hide();
     }
